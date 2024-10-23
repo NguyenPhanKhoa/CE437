@@ -126,12 +126,26 @@ Long_Press Long_Press_Button[NUM_BUTTON] =
 	LED_Blink_Current_Period = LED_Blink_Period[LED_Blink_Current_Mode];
 }
 
+/**
+ * @brief LED all turn off
+ * @operation LED all turn off
+ * @param None
+ * @retval None
+ */
+
 void LED_All_TurnOff(void)
 {
 	HAL_GPIO_WritePin(LEDR_GPIO_Port, LEDR_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(LEDG_GPIO_Port, LEDG_Pin, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(LEDB_GPIO_Port, LEDB_Pin, GPIO_PIN_RESET);
 }
+
+/**
+ * @brief LED all turn on
+ * @operation LED all turn on
+ * @param None
+ * @retval None
+ */
 
 void LED_All_TurnOn(void)
 {
