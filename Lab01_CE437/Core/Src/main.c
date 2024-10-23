@@ -31,9 +31,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
-#define ACTUATOR_GPIO_PORT 		GPIOB
-
 #define NUM_MODE 				3								/* number of mode */
 #define NUM_BUTTON				2								/* number of user button */
 #define DEBOUNCE_DELAY			50U								/* software debounce delay */
@@ -173,15 +170,15 @@ void LED_Blink_Mode_1(void)
 {
 	if (timeElapsed >= LED_Blink_Current_Period)
 	{
-		HAL_GPIO_TogglePin(ACTUATOR_GPIO_PORT, LEDB_Pin);
+		HAL_GPIO_TogglePin(GPIOB, LEDB_Pin);
 		while (timeElapsed < LED_Blink_Current_Period + 300) {
 			if (checkButtonInMode()) return;
 		}
-		HAL_GPIO_TogglePin(ACTUATOR_GPIO_PORT, LEDG_Pin);
+		HAL_GPIO_TogglePin(GPIOB, LEDG_Pin);
 		while (timeElapsed < LED_Blink_Current_Period + 600) {
 			if (checkButtonInMode()) return;
 		}
-		HAL_GPIO_TogglePin(ACTUATOR_GPIO_PORT, LEDR_Pin);
+		HAL_GPIO_TogglePin(GPIOB, LEDR_Pin);
 		while (timeElapsed < LED_Blink_Current_Period + 900) {
 			if (checkButtonInMode()) return;
 		}
@@ -199,15 +196,15 @@ void LED_Blink_Mode_1(void)
 {
 	if (timeElapsed >= LED_Blink_Current_Period)
 	{
-		HAL_GPIO_TogglePin(ACTUATOR_GPIO_PORT, LEDR_Pin);
+		HAL_GPIO_TogglePin(GPIOB, LEDR_Pin);
 //		while (timeElapsed < LED_Blink_Current_Period + 300) {
 //			if (checkButtonInMode()) return;
 //		}
-		HAL_GPIO_TogglePin(ACTUATOR_GPIO_PORT, LEDB_Pin);
+		HAL_GPIO_TogglePin(GPIOB, LEDB_Pin);
 		while (timeElapsed < LED_Blink_Current_Period + 300) {
 			if (checkButtonInMode()) return;
 		}
-		HAL_GPIO_TogglePin(ACTUATOR_GPIO_PORT, LEDG_Pin);
+		HAL_GPIO_TogglePin(GPIOB, LEDG_Pin);
 		while (timeElapsed < LED_Blink_Current_Period + 300) {
 			if (checkButtonInMode()) return;
 		}
@@ -273,18 +270,18 @@ void Buttons_Check(void)
 {
 	for (int _button = 0; _button < NUM_BUTTON; ++ _button)
 	{
-		if (!HAL_GPIO_ReadPin(ACTUATOR_GPIO_PORT, Button_Pin[_button]))
+		if (!HAL_GPIO_ReadPin(GPIOB, Button_Pin[_button]))
 		{
 			/* software debounce */
 			HAL_Delay(DEBOUNCE_DELAY);
-			if (!HAL_GPIO_ReadPin(ACTUATOR_GPIO_PORT, Button_Pin[_button]))
+			if (!HAL_GPIO_ReadPin(GPIOB, Button_Pin[_button]))
 			{
 				isButtonPressed = 1;
 				pressTime = 0;
 				difTime = 0;
 
 				/* wait until the button released */
-				while (!HAL_GPIO_ReadPin(ACTUATOR_GPIO_PORT, Button_Pin[_button]));
+				while (!HAL_GPIO_ReadPin(GPIOB, Button_Pin[_button]));
 				if (pressTime < pressTimeThreshold)
 				{
 					Short_Press_Button[_button]();
@@ -312,11 +309,11 @@ int checkButtonInMode()
 {
 	for (int _button = 0; _button < NUM_BUTTON; ++ _button)
 	{
-		if (!HAL_GPIO_ReadPin(ACTUATOR_GPIO_PORT, Button_Pin[_button]))
+		if (!HAL_GPIO_ReadPin(GPIOB, Button_Pin[_button]))
 		{
 			/* software debounce */
 			HAL_Delay(DEBOUNCE_DELAY);
-			if (!HAL_GPIO_ReadPin(ACTUATOR_GPIO_PORT, Button_Pin[_button])) return 1;
+			if (!HAL_GPIO_ReadPin(GPIOB, Button_Pin[_button])) return 1;
 		}
 	}
 	return 0;
